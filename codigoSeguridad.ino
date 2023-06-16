@@ -1,3 +1,11 @@
+/***************************************************
+Katherin alexandra zuñiga morales
+David santiago fernandez dejoy
+Jose david chilito
+
+Codigo de seguridad con bombillo led y temporizador.
+****************************************************/
+
 #include <LiquidCrystal.h>
 #include <Keypad.h>
 #include <Servo.h>
