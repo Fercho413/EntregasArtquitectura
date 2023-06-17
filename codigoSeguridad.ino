@@ -89,6 +89,17 @@ void setup() {
   lcd.setCursor(0,1);
 }
 void loop() {
+   //Condicional para bloquear el sistema en caso de exceder los intentos(3)
+  if(numIntentos >= MAXIMO){
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("SistemaBloqueado");
+    lcd.setCursor(0, 1);
+    lcd.write((byte)3);
+    longitudCadena = 0;
+    numIntentos = 0;
+    exit(0);
+  }
   char key = keypad.getKey();
   if (key){
     tempInicio=millis()/1000;    //Al ingresar '=' se valida si es o no la contraseña
@@ -121,26 +132,23 @@ void loop() {
         lcd.print("Ingrese Clave:");
         lcd.setCursor(0,1);
         longitudCadena = 0;
-        //Condicional para bloquear el sistema en caso de exceder los intentos(3)
-        if(numIntentos >= MAXIMO){
-          lcd.clear();
-          lcd.setCursor(0, 0);
-          lcd.print("SistemaBloqueado");
-          lcd.setCursor(0, 1);
-          lcd.write((byte)3);
-          longitudCadena = 0;
-          numIntentos = 0;
-          exit(0);
-        }
       }
     }else if (longitudCadena < 6) {
       //Guarda lo escrito en 'ing_contrasenia'
       ing_contrasenia[longitudCadena++] = key;
       lcd.print("*");
     }
+    
   }
+
   tempFinal=millis()/1000;    
-    if((tempFinal-tempInicio)>=5){
+    if((tempFinal-tempInicio)>=5 && longitudCadena>0){
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Clave Incorrecta");
+      lcd.setCursor(8, 1);
+      lcd.write((byte)2);
+      delay(2000);
       lcd.clear();
       lcd.print("Ingrese Clave:");
       delay(250);
@@ -148,7 +156,10 @@ void loop() {
       tempInicio=0;
       tempFinal=0;
       longitudCadena = 0;
+      numIntentos++;
     }
+    
+
 }
 void color (unsigned char red, unsigned char green, unsigned char blue) // the color generating function
 {
