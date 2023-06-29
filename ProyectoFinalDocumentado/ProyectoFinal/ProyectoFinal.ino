@@ -175,6 +175,19 @@ void timeoutgeneral()
   input = Input::timeout;
 }
 
+/*F**************************************************************************
+* NAME: temporizador
+*----------------------------------------------------------------------------
+* PARAMS:
+* return:   none
+*----------------------------------------------------------------------------
+* PURPOSE:
+* Define temporizador procedimiento que resetea en caso de que la contrasena
+* este incompleta
+*----------------------------------------------------------------------------
+* NOTE:
+* 
+*****************************************************************************/
 void temporizador(){
       lcd.clear();
       lcd.setCursor(0, 0);
